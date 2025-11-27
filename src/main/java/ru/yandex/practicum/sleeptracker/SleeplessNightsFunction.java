@@ -1,5 +1,4 @@
 package ru.yandex.practicum.sleeptracker;
-
 import java.time.*;
 import java.util.List;
 import java.util.stream.LongStream;
@@ -9,8 +8,9 @@ public class SleeplessNightsFunction implements SleepAnalysisFunction {
     @Override
     public SleepAnalysisResult<Long> apply(List<SleepingSession> sessions) {
 
-        LocalDate startDate = sessions.get(0).getStart().toLocalDate();
-        LocalDate endDate = sessions.get(sessions.size() - 1).getEnd().toLocalDate();
+
+        LocalDate startDate = sessions.getFirst().getStart().toLocalDate();
+        LocalDate endDate = sessions.getLast().getEnd().toLocalDate();
 
         long totalNights = Duration.between(
                 startDate.atStartOfDay(),
@@ -33,7 +33,10 @@ public class SleeplessNightsFunction implements SleepAnalysisFunction {
         LocalDateTime nightEnd = date.atTime(6, 0);
 
         return sessions.stream()
-                .noneMatch(s -> s.getEnd().isAfter(nightStart)
-                        && s.getStart().isBefore(nightEnd));
+                .noneMatch(s ->
+                        s.getEnd().isAfter(nightStart) &&
+                                s.getStart().isBefore(nightEnd)
+                );
     }
 }
+

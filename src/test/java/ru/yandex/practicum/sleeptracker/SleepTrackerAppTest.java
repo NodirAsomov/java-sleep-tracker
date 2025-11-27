@@ -1,5 +1,6 @@
 package ru.yandex.practicum.sleeptracker;
 
+
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
@@ -8,7 +9,6 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 class SleepTrackerAppTest {
-
 
     private SleepingSession session(long minutes) {
         LocalDateTime start = LocalDateTime.of(2024, 1, 1, 0, 0);
@@ -24,7 +24,6 @@ class SleepTrackerAppTest {
                 session(180)
         );
 
-
         SleepTrackerApp.getFunctions().stream()
                 .map(f -> f.apply(sessions))
                 .forEach(res -> {
@@ -32,5 +31,6 @@ class SleepTrackerAppTest {
                     assertNotNull(res.getDescription(), "Description should not be null");
                     System.out.println(res.getDescription() + ": " + res.getResult());
                 });
+
     }
 }

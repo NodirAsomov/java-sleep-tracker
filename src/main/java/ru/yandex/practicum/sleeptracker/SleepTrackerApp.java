@@ -19,7 +19,15 @@ public class SleepTrackerApp {
     }
 
     public static void main(String[] args) throws Exception {
-        List<SleepingSession> sessions = FileLoader.load("sleep_log.txt");
+
+        if (args.length == 0) {
+            System.err.println("Usage: java SleepTrackerApp <path-to-sleep-log>");
+            return;
+        }
+
+        String logFilePath = args[0];
+
+        List<SleepingSession> sessions = FileLoader.load(logFilePath);
 
         FUNCTIONS.stream()
                 .map(f -> f.apply(sessions))
@@ -27,4 +35,5 @@ public class SleepTrackerApp {
                         System.out.println(res.getDescription() + ": " + res.getResult())
                 );
     }
+
 }
